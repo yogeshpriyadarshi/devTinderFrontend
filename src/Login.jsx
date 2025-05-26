@@ -2,15 +2,22 @@ import axios from "axios";
 import React, { useState } from "react";
 
 export default function Login() {
-  const [emailId, setEmailId] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const loginHandle = async()=>{
-try{
-    const res = await axios.post("",{ emailId,password});
-}catch(err){
-console.error(err)}
-  }
+  const loginHandle = async () => {
+    try {
+      console.log(email, password);
+      const res = await axios.post("http://localhost:2000/login", {
+        email,
+        password,
+      },
+      {withCredentials:true});
+      
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <>
@@ -24,8 +31,8 @@ console.error(err)}
                 type="text"
                 className="input"
                 placeholder="Email"
-                value={emailId}
-                onChange={(e) => setEmailId(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </fieldset>
 
@@ -40,10 +47,7 @@ console.error(err)}
               />
             </fieldset>
             <div className="card-actions justify-center">
-              <button
-                className="btn btn-primary"
-               onClick={loginHandle}
-              >
+              <button className="btn btn-primary" onClick={loginHandle}>
                 {" "}
                 Login{" "}
               </button>
