@@ -1,31 +1,45 @@
 import axios from "axios";
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../utils/constant";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const user = useSelector((store) => store.user);
+
+  const checkUser = async () => {
+    if (user) {
+      navigate("/feed");
+    }
+  };
+  checkUser();
 
   const loginHandle = async () => {
     try {
       console.log(email, password);
-      const res = await axios.post("http://localhost:2000/login", {
-        email,
-        password,
-      },
-      {withCredentials:true});
-      
-       dispatch(addUser(res.data));
-        navigate("/");
+      const res = await axios.post(
+        BASE_URL + "/login",
+        {
+          email,
+          password,
+        },
+        { withCredentials: true }
+      );
 
+      dispatch(addUser(res.data));
+      navigate("/feed");
     } catch (err) {
-      console.log("error");
+      setError(err.response.data);
     }
   };
+
+
 
   return (
     <>
@@ -54,6 +68,7 @@ export default function Login() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </fieldset>
+            <p className="text-red-500"> {error} </p>
             <div className="card-actions justify-center">
               <button className="btn btn-primary" onClick={loginHandle}>
                 {" "}
