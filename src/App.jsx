@@ -9,6 +9,7 @@ import Feed from "./components/Feed";
 import { Provider } from "react-redux";
 import appStore from "./utils/appStore";
 import Setting from "./components/Setting";
+import Sinup from "./components/Sinup";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route path="/" element={<Body />}>
               <Route path="/profile" element={<Profile />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/sinup" element={<Sinup />} />
               <Route path="/feed" element={<Feed />} />
               <Route path="/setting" element={<Setting />} />
             </Route>

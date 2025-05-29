@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../utils/userSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constant";
 
 export default function Login() {
@@ -39,11 +39,9 @@ export default function Login() {
     }
   };
 
-
-
   return (
     <>
-      <div className="flex justify-center mt-5">
+      <div className="flex justify-center mt-25">
         <div className="card card-border bg-blue-100 w-96   ">
           <div className="card-body">
             <h2 className="card-title justify-center"> Login </h2>
@@ -74,7 +72,13 @@ export default function Login() {
                 {" "}
                 Login{" "}
               </button>
+              
             </div>
+            <div className="flex">
+                <p> Haven't account! </p>
+                <button className="border-1 p-2 bg-blue-600 text-white rounded-2xl  "> <Link to="/sinup"> Sin Up </Link>
+ </button>
+              </div>
           </div>
         </div>
       </div>

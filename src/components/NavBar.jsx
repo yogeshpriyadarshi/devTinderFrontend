@@ -9,7 +9,6 @@ export default function NavBar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((store) => store.user);
-  console.log("user of navbar:", user);
 
   const logoutHandler = async () => {
     await axios.post(BASE_URL + "/logout", {}, { withCredentials: true });
@@ -19,7 +18,7 @@ export default function NavBar() {
 
   return (
     <>
-      <div className="navbar bg-blue-500 shadow-sm">
+      <div className="navbar bg-blue-500 shadow-sm fixed top-0">
         {user && (
           <>
             <div className="flex-1">
