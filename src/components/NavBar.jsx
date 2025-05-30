@@ -18,7 +18,7 @@ export default function NavBar() {
 
   return (
     <>
-      <div className="navbar bg-blue-500 shadow-sm fixed top-0">
+      <div className="navbar bg-blue-500 shadow-sm ">
         {user && (
           <>
             <div className="flex-1">

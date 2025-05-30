@@ -1,32 +1,45 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { BASE_URL } from "../utils/constant";
+import { useNavigate } from "react-router";
 
 export default function Sinup() {
   const [singup, setSingup] = useState({
     firstName: "",
     lastName: "",
-    emailId: "",
+    email: "",
     password: "",
   });
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const singupHandler = async() => {
-const res = axios.post(BASE_URL+"sinup", singup, {withCredentials:true} );
-console.log(res);
-if(res.success){
+try{
+
+const res = await axios.post(BASE_URL+"/singup", singup );
+console.log("respones :: ",res.data);
+
+if(res?.data?.success){
 setSingup({
     firstName: "",
     lastName: "",
-    emailId: "",
+    email: "",
     password: "",
-  })
+  });
+  alert("you have successfully sinup. Now login!")
+navigate("/login");
 }
+
+}catch(err){
+  setError(err?.response?.data?.message);
+}
+
   }
 
   return (
     <>
       <div className="flex justify-center mt-20   h-screen">
-        <div className=" h-115 w-100 bg-blue-100 rounded-2xl">
+        <div className=" h-120 w-100 bg-blue-100 rounded-2xl">
           <div className="flex justify-center font-bold mt-2">
             {" "}
             <h1> Sing Up </h1>{" "}
@@ -64,9 +77,9 @@ setSingup({
               type="text"
               placeholder="Email Id:"
               className="bg-white h-7 w-full p-5 rounded-2xl"
-              value={singup.emailId}
+              value={singup.email}
               onChange={(e) => {
-                setSingup({ ...singup, emailId: e.target.value });
+                setSingup({ ...singup, email: e.target.value });
               }}
             />
           </div>
@@ -83,7 +96,7 @@ setSingup({
               }}
             />
           </div>
-
+<p className="text-red-500"  > {error}</p>
           <div className="m-2 flex justify-center">
             <button className="m-2 bg-blue-500 p-2 rounded-2xl"
                     onClick={singupHandler}

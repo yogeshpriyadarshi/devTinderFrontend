@@ -14,13 +14,12 @@ export default function Body() {
   const fetchUser = async () => {
     try {
       const user = await axios.get(BASE_URL + "/profile/view", {
-        withCredentials: true
+        withCredentials: true,
       });
       dispatch(addUser(user.data));
     } catch (err) {
-      if(err.status === 401)
-      {
-      navigate("/login");
+      if (err.status === 401) {
+        navigate("/login");
       }
       console.error(err);
     }
@@ -32,9 +31,20 @@ export default function Body() {
 
   return (
     <>
-      <NavBar />
-      <Outlet />
-      <Footer />
+      <div className="min-h-screen flex flex-col">
+        <div>
+          {" "}
+          <NavBar />
+        </div>
+        <div>
+          {" "}
+          <Outlet />
+        </div>
+        <div>
+          {" "}
+          <Footer />
+        </div>
+      </div>
     </>
   );
 }
