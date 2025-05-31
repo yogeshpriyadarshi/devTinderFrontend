@@ -5,7 +5,7 @@ import EditProfile from './EditProfile'
 export default function Profile() {
 
   return (
-    <div className='flex justify-between  m-5'>
+    <div className='flex justify-between  mt-20 mb-5'>
       <div className='flex-1'> 
 <UserCard/>
       </div>

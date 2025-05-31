@@ -10,6 +10,7 @@ import { addUser } from "../utils/userSlice";
 export default function Body() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
 
   const fetchUser = async () => {
     try {
@@ -36,7 +37,7 @@ export default function Body() {
           {" "}
           <NavBar />
         </div>
-        <div>
+        <div className="flex-1">
           {" "}
           <Outlet />
         </div>

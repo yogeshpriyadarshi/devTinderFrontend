@@ -9,7 +9,6 @@ export default function NavBar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((store) => store.user);
-
   const logoutHandler = async () => {
     await axios.post(BASE_URL + "/logout", {}, { withCredentials: true });
     dispatch(removeUser());
@@ -18,7 +17,7 @@ export default function NavBar() {
 
   return (
     <>
-      <div className="navbar bg-blue-500 shadow-sm ">
+      <div className="navbar bg-blue-500 shadow-sm fixed top-0">
         {user && (
           <>
             <div className="flex-1">
@@ -46,7 +45,7 @@ export default function NavBar() {
                   className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
                 >
                   <li>
-                    <Link to="/profile" className="justify-between">
+                    <Link to={ `profile/${user.firstName}`} >
                       Profile
                     </Link>
                   </li>
