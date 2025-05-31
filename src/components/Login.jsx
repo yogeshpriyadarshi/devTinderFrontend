@@ -22,7 +22,6 @@ export default function Login() {
 
   const loginHandle = async () => {
     try {
-      console.log(email, password);
       const res = await axios.post(
         BASE_URL + "/login",
         {

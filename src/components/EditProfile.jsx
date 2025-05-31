@@ -7,9 +7,7 @@ import { addUser } from "../utils/userSlice";
 export default function EditProfile() {
   const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
-  console.log("user of edit:", user);
  const [firstName, setFirstName] = useState(user?.firstName);
-  console.log("first,",firstName);
   const [lastName, setLastName] = useState(user?.lastName);
   const [age, setAge] = useState(user?.age);
   const [gender, setGender] = useState(user?.gender);
@@ -53,7 +51,7 @@ dispatch(addUser(res.data));
 
   return (
     <div>
-      <div className="bg-blue-100 p-7">
+      <div className="bg-blue-100 p-7 m-5">
         <label>First Name:</label>
         <input
           type="text"
