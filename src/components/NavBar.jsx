@@ -25,12 +25,21 @@ export default function NavBar() {
                 daisyUI
               </Link>
             </div>
-    <div className="flex-1">
+            <div className="flex-1">
               <Link to="/feed" className="btn btn-ghost text-xl">
                 Explore Developer
               </Link>
             </div>
-
+            <div className="flex-1">
+              <Link to="/receivedconnection" className="btn btn-ghost text-xl">
+                Received Connection
+              </Link>
+            </div>
+              <div className="flex-1">
+              <Link to="/connection" className="btn btn-ghost text-xl">
+            Connection
+              </Link>
+            </div>
 
             <div className="flex gap-2">
               <div className="dropdown dropdown-end">
@@ -43,7 +52,6 @@ export default function NavBar() {
                     <img
                       alt="Tailwind CSS Navbar component"
                       src={user.photoUrl}
-     
                     />
                   </div>
                 </div>
@@ -52,9 +60,7 @@ export default function NavBar() {
                   className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
                 >
                   <li>
-                    <Link to={ `profile/${user.firstName}`} >
-                      Profile
-                    </Link>
+                    <Link to={`profile/${user.firstName}`}>Profile</Link>
                   </li>
                   <li>
                     <Link to="/setting"> Settings </Link>

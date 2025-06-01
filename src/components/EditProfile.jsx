@@ -14,8 +14,10 @@ export default function EditProfile() {
   const [photoUrl, setPhotoUrl] = useState(user?.photoUrl);
   const [about, setAbout] = useState(user?.about);
   const [skill, setSkill] = useState(user?.skill);
+  const [error, setError] = useState("");
 
   useEffect( ()=> {
+    setError("")
     if(!user){
         return;
     }
@@ -45,7 +47,8 @@ setSkill(user?.skill);
       );
 dispatch(addUser(res.data));
     } catch (err) {
-        console.log(err);
+       setError(err?.response?.data);
+        console.error(err);
     }
   }
 
@@ -107,6 +110,8 @@ dispatch(addUser(res.data));
           value={skill}
           onChange={(e) => setSkill(e.target.value)}
         />
+
+<p className="text-red-500">{error}</p>
 
         <div className="flex justify-center">
           <button

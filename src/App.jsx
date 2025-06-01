@@ -9,6 +9,8 @@ import appStore from "./utils/appStore";
 import Setting from "./components/Setting";
 import Singup from "./components/Singup";
 import Feed from "./components/feed";
+import ReceivedConnection from "./components/ReceivedConnection";
+import Connection from "./components/Connection";
 
 function App() {
   return (
@@ -21,6 +23,12 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/sinup" element={<Singup />} />
               <Route path="/feed" element={<Feed />} />
+              <Route
+                path="/receivedconnection"
+                element={<ReceivedConnection />}
+              />
+              <Route path="/connection" element={<Connection />} />
+
               <Route path="/setting" element={<Setting />} />
             </Route>
           </Routes>
