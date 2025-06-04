@@ -5,11 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { addFeed } from "../utils/feedSlice";
 import UserCard from "./UserCard";
 import { useNavigate } from "react-router";
+
 export default function Feed() {
   const feed = useSelector((store) => store.feed);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [render, setRender]= useState(0);
 
   const fetchFeed = async () => {
     try {
@@ -31,7 +31,7 @@ export default function Feed() {
       );
       if (res.data.success) {
         console.log("success!");
-        setRender(5);
+        fetchFeed();
       }
     } catch (err) {
       res.status(400).send("ERROR:" + err.message);
@@ -40,15 +40,16 @@ export default function Feed() {
 
   useEffect(() => {
     fetchFeed();
-  }, [render]);
+  }, []);
 
   return (
     <>
       <div className="mt-20">
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-4 gap-5">
           {feed?.map((data, index) => (
             <div key={data._id} className="h-auto  bg-blue-100 m-5">
-              <img src={data.photoUrl} alt="Profile Pic" />
+              <img src={data.photoUrl} alt="Profile Pic" 
+              className="w-60 h-36 object-cover"/>
               <p> {data.firstName + "  " + data.lastName} </p>
               <p> {`${data.age}  ${data.gender}`} </p>
               {/* {data?.agg && data?.gender && (

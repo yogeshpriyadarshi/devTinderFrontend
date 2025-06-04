@@ -4,13 +4,14 @@ import { Outlet, useNavigate } from "react-router";
 import Footer from "./Footer";
 import axios from "axios";
 import { BASE_URL } from "../utils/constant";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../utils/userSlice";
 
 export default function Body() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+  const user = useSelector(store => store.user);
+  console.log(" user in body:",user);
 
   const fetchUser = async () => {
     try {
@@ -29,6 +30,8 @@ export default function Body() {
   useEffect(() => {
     fetchUser();
   }, []);
+
+
 
   return (
     <>
