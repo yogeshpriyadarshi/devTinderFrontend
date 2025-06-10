@@ -17,17 +17,22 @@ export default function NavBar() {
 
   return (
     <>
-      <div className="navbar bg-blue-500 shadow-sm fixed top-0">
-        {user && (
-          <>
-            <div className="flex-1">
-              <Link to="/" className="btn btn-ghost text-xl">
-                daisyUI
-              </Link>
+      <div className="navbar bg-back shadow-sm fixed top-0">
+      
+            <div className="text-3xl text-text font-bold ">
+                Dev-Tinder
             </div>
+  {user && (
+          <>
+            
             <div className="flex-1">
               <Link to="/feed" className="btn btn-ghost text-xl">
                 Explore Developer
+              </Link>
+            </div>
+            <div className="flex-1">
+              <Link to="/sentconnection" className="btn btn-ghost text-xl">
+                Sent Connection
               </Link>
             </div>
             <div className="flex-1">
@@ -35,9 +40,9 @@ export default function NavBar() {
                 Received Connection
               </Link>
             </div>
-              <div className="flex-1">
+            <div className="flex-1">
               <Link to="/connection" className="btn btn-ghost text-xl">
-            Connection
+                Connection
               </Link>
             </div>
 

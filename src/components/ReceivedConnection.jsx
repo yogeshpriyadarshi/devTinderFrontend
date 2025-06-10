@@ -11,7 +11,7 @@ export default function ReceivedConnection() {
         BASE_URL + "/request/view/",
         {withCredentials:true}
       );
-      console.log(res.data);
+      console.log(res.data)
       setRequest(res.data);
     } catch (err) {
       console.error(err);
@@ -28,13 +28,25 @@ console.error(err);
     receiveRequest();
   }, []);
 
+  if(!request.length){
+    return (
+    <>  
+    <div className="flex justify-center items-center h-screen text-5xl font-bold text-text">
+      <h1> No Request is found!!!  </h1>
+        </div>
+    
+    </>
+
+    )
+  }
+
+
   return (  
        <div className="mt-20">
-
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-3 gap-2 ">
           {request?.map((data, index) => (
-            <div key={data._id} className="h-auto  bg-blue-100 m-5">
-              <img src={data?.fromUserId?.photoUrl} alt="Profile Pic" />
+            <div key={data._id} className="  bg-blue-100 m-5">
+              <img src={data?.fromUserId?.photoUrl} alt="Profile Pic" className="w-full" />
               <p> {data?.fromUserId?.firstName + "  " + data?.fromUserId?.lastName} </p>
               <p> {data?.fromUserId?.age + "  " + data?.fromUserId?.gender} </p>
               <p> about: {data?.fromUserId?.about}</p>

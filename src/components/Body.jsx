@@ -11,7 +11,6 @@ export default function Body() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector(store => store.user);
-  console.log(" user in body:",user);
 
   const fetchUser = async () => {
     try {
@@ -35,7 +34,7 @@ export default function Body() {
 
   return (
     <>
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-screen flex flex-col bg-back">
         <div>
           {" "}
           <NavBar />

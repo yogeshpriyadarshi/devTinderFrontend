@@ -39,10 +39,10 @@ navigate("/login");
   return (
     <>
       <div className="flex justify-center mt-20   h-screen">
-        <div className=" h-120 w-100 bg-blue-100 rounded-2xl">
+        <div className=" h-135 w-100 bg-back rounded-2xl border">
           <div className="flex justify-center font-bold mt-2">
             {" "}
-            <h1> Sing Up </h1>{" "}
+            <h1 className="font-bold text-text text-3xl" > Sing Up </h1>{" "}
           </div>
 
           <div className="m-2 flex flex-col">
@@ -96,15 +96,19 @@ navigate("/login");
               }}
             />
           </div>
-<p className="text-red-500"  > {error}</p>
-          <div className="m-2 flex justify-center">
-            <button className="m-2 bg-blue-500 p-2 rounded-2xl"
+<p className="text-red-500 mx-5"  > {error}</p>
+          <div className=" flex justify-center">
+            <button className="mb-2 bg-button w-1/2 text-text font-bold text-2xl active:bg-active hover:bg-change p-2 rounded-2xl"
                     onClick={singupHandler}
             >
               {" "}
-              sign up
+              Sign Up
             </button>
           </div>
+          <div className="flex justify-between ">
+            <p className=" mx-3 text-text font-bold py-2" > Already Account!!! </p>
+             <button className="mx-3 border px-5 py-1 rounded-2xl text-text text-2xl bg-button active:bg-active hover:bg-change"
+             onClick={()=>{navigate("/login") }} > Log In </button></div>
         </div>
       </div>
     </>

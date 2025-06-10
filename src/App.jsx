@@ -11,6 +11,7 @@ import Singup from "./components/Singup";
 import Feed from "./components/feed";
 import ReceivedConnection from "./components/ReceivedConnection";
 import Connection from "./components/Connection";
+import SentConnetion from "./components/SentConnetion";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/sinup" element={<Singup />} />
               <Route path="/feed" element={<Feed />} />
+               <Route path="/sentconnection" element={<SentConnetion />} />
               <Route
                 path="/receivedconnection"
                 element={<ReceivedConnection />}

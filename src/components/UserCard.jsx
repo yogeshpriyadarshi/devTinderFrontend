@@ -5,7 +5,7 @@ export default function UserCard() {
   const user = useSelector((store) => store.user);
 
   return (
-    <div className="flex flex-col border-2 rounded-2xl bg-blue-100 m-5">
+    <div className="flex flex-col border-2 rounded-2xl bg-active m-5">
       <img className="m-2" alt="profile Pic" src={user?.photoUrl} />
       <div className="flex justify-around">
         {" "}

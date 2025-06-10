@@ -47,18 +47,14 @@ export default function Feed() {
       <div className="mt-20">
         <div className="grid grid-cols-4 gap-5">
           {feed?.map((data, index) => (
-            <div key={data._id} className="h-auto  bg-blue-100 m-5">
+            <div key={data._id} className="h-75  bg-active m-5 rounded-2xl">
               <img src={data.photoUrl} alt="Profile Pic" 
-              className="w-60 h-36 object-cover"/>
-              <p> {data.firstName + "  " + data.lastName} </p>
-              <p> {`${data.age}  ${data.gender}`} </p>
-              {/* {data?.agg && data?.gender && (
-                <p>{`${data.age}  ${data.gender}`}</p>
-              )} */}
-
+              className="w-full h-8/12 "/>
+              <p className="mx-2"> {data.firstName + "  " + data.lastName} </p>
+              <p className="mx-2"> {`${data.age}  ${data.gender}`} </p>
               <div className="flex justify-around">
                 <button
-                  className="bg-red-400 px-5 py-2 rounded-2xl"
+                  className="bg-red-300 px-5 py-2 rounded-2xl"
                   onClick={() => {
                     connectionHandler("ignored", data._id);
                   }}

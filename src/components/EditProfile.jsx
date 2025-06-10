@@ -54,11 +54,11 @@ dispatch(addUser(res.data));
 
   return (
     <div>
-      <div className="bg-blue-100 p-7 m-5">
+      <div className="bg-active p-7 m-5 rounded-2xl">
         <label>First Name:</label>
         <input
           type="text"
-          className="h-7 w-full bg-red-100 m-2 rounded-1xl px-3 py-1 "
+          className="h-7 w-full bg-change m-2 rounded-lg px-3 py-1 "
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
         />
@@ -66,7 +66,7 @@ dispatch(addUser(res.data));
         <label> Last Name:</label>
         <input
           type="text"
-          className="h-7 w-full bg-red-100 m-2 rounded-1xl px-3 py-1 "
+          className="h-7 w-full bg-change m-2 rounded-lg px-3 py-1 "
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
         />
@@ -74,7 +74,7 @@ dispatch(addUser(res.data));
         <label> Age:</label>
         <input
           type="text"
-          className="h-7 w-full bg-red-100 m-2 rounded-1xl px-3 py-1 "
+        className="h-7 w-full bg-change m-2 rounded-lg px-3 py-1 "
           value={age}
           onChange={(e) => setAge(e.target.value)}
         />
@@ -82,7 +82,7 @@ dispatch(addUser(res.data));
         <label> Gender:</label>
         <input
           type="text"
-          className="h-7 w-full bg-red-100 m-2 rounded-1xl px-3 py-1"
+     className="h-7 w-full bg-change m-2 rounded-lg px-3 py-1 "
           value={gender}
           onChange={(e) => setGender(e.target.value)}
         />
@@ -90,7 +90,7 @@ dispatch(addUser(res.data));
         <label> Phot_url:</label>
         <input
           type="text"
-          className="h-7 w-full bg-red-100 m-2 rounded-1xl px-3 py-1"
+       className="h-7 w-full bg-change m-2 rounded-lg px-3 py-1 "
           value={photoUrl}
           onChange={(e) => setPhotoUrl(e.target.value)}
         />
@@ -98,7 +98,7 @@ dispatch(addUser(res.data));
         <label> About:</label>
         <input
           type="text"
-          className="h-7 w-full bg-red-100 m-2 rounded-1xl px-3 py-1"
+         className="h-7 w-full bg-change m-2 rounded-lg px-3 py-1 "
           value={about}
           onChange={(e) => setAbout(e.target.value)}
         />
@@ -106,7 +106,7 @@ dispatch(addUser(res.data));
         <label> Skill:</label>
         <input
           type="text"
-          className="h-7 w-full bg-red-100 m-2 rounded-1xl px-3 py-1 "
+       className="h-7 w-full bg-change m-2 rounded-lg px-3 py-1 "
           value={skill}
           onChange={(e) => setSkill(e.target.value)}
         />
@@ -115,7 +115,7 @@ dispatch(addUser(res.data));
 
         <div className="flex justify-center">
           <button
-            className="bg-blue-500 py-2 px-5 rounded"
+            className="bg-button text-text  py-2 px-5 rounded  active:bg-blue-300"
             onClick={()=>{ updateProfile() }}
           >
             {" "}
