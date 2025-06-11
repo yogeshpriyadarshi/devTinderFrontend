@@ -1,9 +1,8 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { BASE_URL, PROFILE_URL } from "../utils/constant";
+import React, { useEffect } from "react";
+import { BASE_URL } from "../utils/constant";
 import { useDispatch, useSelector } from "react-redux";
 import { addFeed } from "../utils/feedSlice";
-import UserCard from "./UserCard";
 import { useNavigate } from "react-router";
 
 export default function Feed() {
@@ -18,7 +17,7 @@ export default function Feed() {
       });
       dispatch(addFeed(res.data));
     } catch (err) {
-      console.err(err);
+      console.error(err);
     }
   };
 
@@ -30,11 +29,10 @@ export default function Feed() {
         { withCredentials: true }
       );
       if (res.data.success) {
-        console.log("success!");
         fetchFeed();
       }
     } catch (err) {
-      res.status(400).send("ERROR:" + err.message);
+      alert("ERROR: " + err.message);
     }
   };
 
@@ -43,39 +41,52 @@ export default function Feed() {
   }, []);
 
   return (
-    <>
-      <div className="mt-20">
-        <div className="grid grid-cols-4 gap-5">
-          {feed?.map((data, index) => (
-            <div key={data._id} className="h-75  bg-active m-5 rounded-2xl">
-              <img src={data.photoUrl} alt="Profile Pic" 
-              className="w-full h-8/12 "/>
-              <p className="mx-2"> {data.firstName + "  " + data.lastName} </p>
-              <p className="mx-2"> {`${data.age}  ${data.gender}`} </p>
-              <div className="flex justify-around">
+    <div className="mt-24 px-4 sm:px-6 lg:px-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {feed?.map((data) => (
+          <div
+            key={data._id}
+            className="bg-active rounded-2xl overflow-hidden shadow-md"
+          >
+            <img
+              src={data.photoUrl}
+              alt="Profile Pic"
+              className="w-full h-[200px] md:h-[250px] object-cover"
+            />
+            <div className="p-4">
+              <p className="text-lg font-semibold">
+                {data.firstName} {data.lastName}
+              </p>
+              <p className="text-sm text-gray-700">{`${data.age} • ${data.gender}`}</p>
+              <div className="flex justify-between mt-4 gap-2">
                 <button
-                  className="bg-red-300 px-5 py-2 rounded-2xl"
+                  className="bg-red-300 px-4 py-2 rounded-xl text-sm hover:bg-red-500 transition"
                   onClick={() => {
-                    connectionHandler("ignored", data._id);
+                    const confirm = window.confirm(
+                      `This profile will not be shown again!\nDo you want to ignore ${data?.firstName}?`
+                    );
+                    if (confirm) {
+                      connectionHandler("ignored", data._id);
+                    } else {
+                      alert("Your request has been cancelled.");
+                    }
                   }}
                 >
-                  {" "}
-                  Ignore{" "}
+                  Ignore
                 </button>
                 <button
-                  className="bg-green-300 px-5 py-2 rounded-2xl"
+                  className="bg-green-300 px-4 py-2 rounded-xl text-sm hover:bg-green-500 transition"
                   onClick={() => {
                     connectionHandler("interested", data._id);
                   }}
                 >
-                  {" "}
-                  Interest{" "}
+                  Interest
                 </button>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
-    </>
+    </div>
   );
 }

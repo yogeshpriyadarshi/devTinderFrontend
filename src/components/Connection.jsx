@@ -51,10 +51,10 @@ export default function Connection() {
     
     ):(
 <div className="mt-20">
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-4 gap-5">
           {connection?.map((data, index) => (
-            <div key={data._id} className="h-auto  bg-blue-100 m-5">
-              <img src={data?.photoUrl} alt="Profile Pic" />
+            <div key={data._id} className="h-75  bg-active m-5">
+              <img src={data?.photoUrl} alt="Profile Pic" className="h-8/12 w-ful" />
               <p> {data?.firstName + "  " + data?.lastName} </p>
               <p> {data?.age + "  " + data?.gender} </p>
             </div>

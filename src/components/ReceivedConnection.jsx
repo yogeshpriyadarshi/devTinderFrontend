@@ -19,7 +19,10 @@ export default function ReceivedConnection() {
   };
 const connectionHandler = async(status,id)=>{
     try{
-        const res = await axios.patch(BASE_URL + "/request/review/" + status + "/" + id,{status} ,{withCredentials:true});    
+        const res = await axios.patch(BASE_URL + "/request/review/" + status + "/" + id,{status} ,{withCredentials:true});
+        if(res.data.success){
+          receiveRequest();
+        }    
     }catch(err){
 console.error(err);
     }
@@ -43,25 +46,24 @@ console.error(err);
 
   return (  
        <div className="mt-20">
-        <div className="grid grid-cols-3 gap-2 ">
+        <div className="grid grid-cols-4 gap-5 ">
           {request?.map((data, index) => (
-            <div key={data._id} className="  bg-blue-100 m-5">
-              <img src={data?.fromUserId?.photoUrl} alt="Profile Pic" className="w-full" />
+            <div key={data._id} className="  bg-active m-5 h-75">
+              <img src={data?.fromUserId?.photoUrl} alt="Profile Pic" className="w-full h-8/12" />
               <p> {data?.fromUserId?.firstName + "  " + data?.fromUserId?.lastName} </p>
               <p> {data?.fromUserId?.age + "  " + data?.fromUserId?.gender} </p>
-              <p> about: {data?.fromUserId?.about}</p>
               <div className="flex justify-around">
                 <button
-                  className="bg-red-400 px-5 py-2 rounded-2xl"
+                  className="bg-red-400 px-5 py-2 rounded-2xl active:bg-red-800 hover:bg-red-600"
                   onClick={() => {
                     connectionHandler("declined",data?.fromUserId?._id);
                   }}
                 >
                   {" "}
-                  Dcline{" "}
+                  Decline{" "}
                 </button>
                 <button
-                  className="bg-green-300 px-5 py-2 rounded-2xl"
+                  className="bg-green-300 px-5 py-2 rounded-2xl active:bg-green-800 hover:bg-green-600"
                   onClick={() => {
                     connectionHandler("accepted",data?.fromUserId?._id);
                   }}
