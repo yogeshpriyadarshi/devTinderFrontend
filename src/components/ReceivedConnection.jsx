@@ -11,7 +11,6 @@ export default function ReceivedConnection() {
         BASE_URL + "/request/view/",
         {withCredentials:true}
       );
-      console.log(res.data)
       setRequest(res.data);
     } catch (err) {
       console.error(err);

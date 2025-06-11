@@ -8,7 +8,6 @@ import { useNavigate } from "react-router";
 export default function Feed() {
   const feed = useSelector((store) => store.feed);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const fetchFeed = async () => {
     try {

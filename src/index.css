@@ -7,3 +7,9 @@
   --color-active:#94af8c;
   --color-change: #dad4ce;
 }
+
+@layer base {
+  * {
+    @apply box-border;
+  }
+}

@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router";
 import { removeUser } from "../utils/userSlice";
 import axios from "axios";
 import { BASE_URL } from "../utils/constant";
+import Header from "./Header";
 
 export default function NavBar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((store) => store.user);
+  const [menuOpen, setMenuOpen] = useState(false);
   const logoutHandler = async () => {
     await axios.post(BASE_URL + "/logout", {}, { withCredentials: true });
     dispatch(removeUser());
@@ -17,66 +19,43 @@ export default function NavBar() {
 
   return (
     <>
-      <div className="navbar bg-back shadow-sm fixed top-0">
-      
-            <div className="text-3xl text-text font-bold ">
-                Dev-Tinder
-            </div>
-  {user && (
-          <>
-            
-            <div className="flex-1">
-              <Link to="/feed" className="btn btn-ghost text-xl">
-                Explore Developer
-              </Link>
-            </div>
-            <div className="flex-1">
-              <Link to="/sentconnection" className="btn btn-ghost text-xl">
-                Sent Connection
-              </Link>
-            </div>
-            <div className="flex-1">
-              <Link to="/receivedconnection" className="btn btn-ghost text-xl">
-                Received Connection
-              </Link>
-            </div>
-            <div className="flex-1">
-              <Link to="/connection" className="btn btn-ghost text-xl">
-                Connection
-              </Link>
-            </div>
-
-            <div className="flex gap-2">
-              <div className="dropdown dropdown-end">
-                <div
-                  tabIndex={0}
-                  role="button"
-                  className="btn btn-ghost btn-circle avatar"
-                >
-                  <div className="w-10 rounded-full">
-                    <img
-                      alt="Tailwind CSS Navbar component"
-                      src={user.photoUrl}
-                    />
-                  </div>
-                </div>
-                <ul
-                  tabIndex={0}
-                  className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-                >
-                  <li>
-                    <Link to={`profile/${user.firstName}`}>Profile</Link>
-                  </li>
-                  <li>
-                    <Link to="/setting"> Settings </Link>
-                  </li>
-                  <li>
-                    <a onClick={logoutHandler}>Logout</a>
-                  </li>
-                </ul>
+      <div className=" w-full h-auto bg-back shadow-sm fixed top-0 left-0  ">
+        <div className=" flex justify-between">
+          <div className="text-3xl text-text font-bold ">Dev-Tinder</div>
+          {user && (
+            <>
+              <div className="hidden md:flex">
+                <Header />
               </div>
-            </div>
-          </>
+              <button
+                className="  md:hidden"
+                onClick={() => setMenuOpen((prev) => !prev)}
+              >
+                <svg
+                  className="w-6 h-6 "
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d={
+                      menuOpen
+                        ? "M6 18L18 6M6 6l12 12"
+                        : "M4 6h16M4 12h16M4 18h16"
+                    }
+                  />
+                </svg>
+              </button>
+            </>
+          )}
+        </div>
+        {menuOpen && (
+          <div>
+            <Header />
+          </div>
         )}
       </div>
     </>
