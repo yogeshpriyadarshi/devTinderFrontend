@@ -7,7 +7,7 @@ import { addUser } from "../utils/userSlice";
 export default function EditProfile() {
   const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
- const [firstName, setFirstName] = useState(user?.firstName);
+  const [firstName, setFirstName] = useState(user?.firstName);
   const [lastName, setLastName] = useState(user?.lastName);
   const [age, setAge] = useState(user?.age);
   const [gender, setGender] = useState(user?.gender);
@@ -16,39 +16,39 @@ export default function EditProfile() {
   const [skill, setSkill] = useState(user?.skill);
   const [error, setError] = useState("");
 
-  useEffect( ()=> {
-    setError("")
-    if(!user){
-        return;
+  useEffect(() => {
+    setError("");
+    if (!user) {
+      return;
     }
-setAbout(user?.about);
-setAge(user?.age);
-setFirstName(user?.firstName);
-setLastName(user?.lastName);
-setGender(user?.gender)
-setPhotoUrl(user?.photoUrl);
-setSkill(user?.skill);
-  },[user]);
+    setAbout(user?.about);
+    setAge(user?.age);
+    setFirstName(user?.firstName);
+    setLastName(user?.lastName);
+    setGender(user?.gender);
+    setPhotoUrl(user?.photoUrl);
+    setSkill(user?.skill);
+  }, [user]);
 
   async function updateProfile() {
     try {
       const res = await axios.patch(
-        BASE_URL + "/profile/edit/" + user._id ,
+        BASE_URL + "/profile/edit/" + user._id,
         {
-        firstName,
-        lastName,
-        age,
-        gender,
-        photoUrl,
-        about,
-        skill
+          firstName,
+          lastName,
+          age,
+          gender,
+          photoUrl,
+          about,
+          skill,
         },
         { withCredentials: true }
       );
-dispatch(addUser(res.data));
+      dispatch(addUser(res.data));
     } catch (err) {
-       setError(err?.response?.data);
-        console.error(err);
+      setError(err?.response?.data);
+      console.error(err);
     }
   }
 
@@ -74,23 +74,23 @@ dispatch(addUser(res.data));
         <label> Age:</label>
         <input
           type="text"
-        className="h-7 w-full bg-change m-2 rounded-lg px-3 py-1 "
+          className="h-7 w-full bg-change m-2 rounded-lg px-3 py-1 "
           value={age}
           onChange={(e) => setAge(e.target.value)}
         />
 
         <label> Gender:</label>
-        <input
-          type="text"
-     className="h-7 w-full bg-change m-2 rounded-lg px-3 py-1 "
-          value={gender}
-          onChange={(e) => setGender(e.target.value)}
-        />
-
+        <select className="border mx-5 bg-change "  onChange={(e) => setGender(e.target.value)}>
+          <option>Select Gender:</option>
+          <option> male </option>
+          <option> female </option>
+          <option> others </option>
+        </select>
+        <br></br>
         <label> Phot_url:</label>
         <input
           type="text"
-       className="h-7 w-full bg-change m-2 rounded-lg px-3 py-1 "
+          className="h-7 w-full bg-change m-2 rounded-lg px-3 py-1 "
           value={photoUrl}
           onChange={(e) => setPhotoUrl(e.target.value)}
         />
@@ -98,7 +98,7 @@ dispatch(addUser(res.data));
         <label> About:</label>
         <input
           type="text"
-         className="h-7 w-full bg-change m-2 rounded-lg px-3 py-1 "
+          className="h-7 w-full bg-change m-2 rounded-lg px-3 py-1 "
           value={about}
           onChange={(e) => setAbout(e.target.value)}
         />
@@ -106,17 +106,19 @@ dispatch(addUser(res.data));
         <label> Skill:</label>
         <input
           type="text"
-       className="h-7 w-full bg-change m-2 rounded-lg px-3 py-1 "
+          className="h-7 w-full bg-change m-2 rounded-lg px-3 py-1 "
           value={skill}
           onChange={(e) => setSkill(e.target.value)}
         />
 
-<p className="text-red-500">{error}</p>
+        <p className="text-red-500">{error}</p>
 
         <div className="flex justify-center">
           <button
             className="bg-button text-text  py-2 px-5 rounded  active:bg-blue-300"
-            onClick={()=>{ updateProfile() }}
+            onClick={() => {
+              updateProfile();
+            }}
           >
             {" "}
             Update Profile{" "}

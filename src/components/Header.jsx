@@ -1,13 +1,20 @@
 import axios from "axios";
-import React from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router";
+import {BASE_URL} from "../utils/constant";
+import { removeUser } from "../utils/userSlice";
+
 
 export default function Header() {
+    const [open, setOpen] = useState(false);
     const user = useSelector(store=> store.user);
+    console.log(user);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
     const logoutHandler = async () => {
+        console.log("logout")
     await axios.post(BASE_URL + "/logout", {}, { withCredentials: true });
     dispatch(removeUser());
     navigate("/login");
@@ -35,32 +42,21 @@ export default function Header() {
           </Link>
         </div>
 
-        <div className="flex gap-2">
-          <div className="dropdown dropdown-end">
-            <div
-              tabIndex={0}
-              role="button"
-              className="btn btn-ghost btn-circle avatar"
-            >
-              <div className="w-10 rounded-full">
-                <img alt="Tailwind CSS Navbar component" src={user.photoUrl} />
-              </div>
+<div> 
+<button className="text-text text-2xl mt-3"> {user?.firstName} </button>
+
+</div>
+        <div className="relative">
+            <img alt="Profile pic"  src={user?.photoUrl} className="h-15 w-15 mx-3 rounded-full object-cover"
+            onClick={()=>{setOpen(pre=>!pre)}} /> 
+         {
+           open && (
+            <div className="absolute bg-back " > 
+              <Link to="/profile">  <button className="bg-button w-full px-5 my-2 rounded-lg" > Profile  </button>   </Link> 
+             <button className="bg-button w-full px-5 my-2 rounded-lg active:bg-active"  onClick={()=>{logoutHandler()}} >  logout  </button>
             </div>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-            >
-              <li>
-                <Link to={`profile/${user.firstName}`}>Profile</Link>
-              </li>
-              <li>
-                <Link to="/setting"> Settings </Link>
-              </li>
-              <li>
-                <a onClick={logoutHandler}>Logout</a>
-              </li>
-            </ul>
-          </div>
+              )
+         }
         </div>
       
     </>

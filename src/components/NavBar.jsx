@@ -1,22 +1,10 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router";
-import { removeUser } from "../utils/userSlice";
-import axios from "axios";
-import { BASE_URL } from "../utils/constant";
+import {  useSelector } from "react-redux";
 import Header from "./Header";
 
 export default function NavBar() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const user = useSelector((store) => store.user);
   const [menuOpen, setMenuOpen] = useState(false);
-  const logoutHandler = async () => {
-    await axios.post(BASE_URL + "/logout", {}, { withCredentials: true });
-    dispatch(removeUser());
-    navigate("/login");
-  };
-
   return (
     <>
       <div className=" w-full h-auto bg-back shadow-sm fixed top-0 left-0  ">
