@@ -1,16 +1,22 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { BASE_URL } from "../utils/constant";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Loader } from "./Loader";
 import Model from "./Model";
+import { addChat } from "../utils/chatSlice";
 
 export default function Connection() {
 
   const user = useSelector((store) => store.user);
+  const dispatch = useDispatch();
   const [connection, setConnection] = useState([]);
   const [loader, setLoader] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
+
+  const isModel = ()=>{
+    setIsOpen(p=>!p)
+  }
 
   const allConnection = async () => {
     const res = await axios.get(BASE_URL + "/connection", {
@@ -48,7 +54,7 @@ export default function Connection() {
     <Loader/>   
     ):(
 <div className="mt-20">
-  {isOpen && <Model   />}
+  {isOpen && <Model text = {isModel}  />}
         <div className="grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 xl:grid-cols-4 ">
           {connection?.map((data, index) => (
             <div key={data._id} className="h-75 bg-active m-5">
@@ -58,7 +64,7 @@ export default function Connection() {
               <div className="flex justify-between"> 
                    <button className="bg-red-300 border px-2 rounded-lg mx-5 cursor-pointer hover:bg-red-700 active:bg-red-900"> Unfriends </button>
               <button className="bg-green-300 border mx-5 px-2  rounded-lg hover:bg-green-600 active:bg-green-800"
-              onClick={()=>{setIsOpen(p=>!p)}}
+              onClick={()=>{dispatch(addChat(data?._id));  setIsOpen(p=>!p)}}
               > Message </button>
               
                 </div>

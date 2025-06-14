@@ -9,12 +9,10 @@ import { removeUser } from "../utils/userSlice";
 export default function Header() {
     const [open, setOpen] = useState(false);
     const user = useSelector(store=> store.user);
-    console.log(user);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const logoutHandler = async () => {
-        console.log("logout")
     await axios.post(BASE_URL + "/logout", {}, { withCredentials: true });
     dispatch(removeUser());
     navigate("/login");
