@@ -44,7 +44,7 @@ if(!sent.length){
   return (
     <>
       <div className="mt-20">
-        <div className="grid grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {sent.map((data, index) => (
             <>
               <div key={data?.toUserId?._id} className="bg-active h-75 m-5 rounded-2xl ">

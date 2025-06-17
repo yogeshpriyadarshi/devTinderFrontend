@@ -50,7 +50,8 @@ export default function Header() {
          {
            open && (
             <div className="absolute bg-back " > 
-              <Link to="/profile">  <button className="bg-button w-full px-5 my-2 rounded-lg" > Profile  </button>   </Link> 
+              <Link to="/profile">  
+              <button className="bg-button w-full px-5 my-2 rounded-lg" onClick={()=>{setOpen(p=>!p)}} > Profile  </button>   </Link> 
              <button className="bg-button w-full px-5 my-2 rounded-lg active:bg-active"  onClick={()=>{logoutHandler()}} >  logout  </button>
             </div>
               )

@@ -7,23 +7,30 @@ export default function Model({text}) {
     const user = useSelector(store => store.user)
     const targetId = useSelector(store => store.chat);
     const [message, setMessage] = useState("");
+    const [chatMessage, setChatMessage] = useState([]);
     const userId = user._id;
 
     const submitHandler = (e)=>{
           e.preventDefault();
           const socket = createSocketConnection();
           socket.emit("sendMessage", {firstName: user.firstName, userId, targetId, message }  )
+          setMessage("");
     }
 
 useEffect(()=>{
 const socket = createSocketConnection();
-
-socket.emit("join",{ userId, targetId });
-
+socket.emit("join",{firstName:user?.firstName, userId, targetId });
 
 socket.on("receiveMessage", ({firstName, message })=>{
-
 console.log("receive message:", firstName,message);
+let toogle =false;
+if(firstName===user?.firstName){
+    toogle =true;
+}
+
+
+
+setChatMessage((chat)=>[...chat, {firstName, message, turn:toogle} ]  );
 
 })
 
@@ -45,19 +52,22 @@ return () => {socket.disconnect()}
             <h1 className="text-3xl text-text "> Message!!! </h1>
           </div>
 
-          <div className="flex justify-end my-2  ">
+{ chatMessage.map( (chat,index)=>  ( <>   
+
+         { chat?.turn ? ( <div className="flex justify-end my-2  ">
             <div className="bg-gray-500  rounded-lg px-2 py-1 h-8 mx-2 ">
               {" "}
-              I am sending message.{" "}
+              {chat?.message}.{" "}
             </div>
-          </div>
-
-          <div className="flex ">
+          </div>): (<div className="flex ">
             <div className="bg-gray-500  rounded-lg px-2 py-1 h-8 m-2 ">
               {" "}
-              I am receiving message{" "}
+              {chat?.message} {" "}
             </div>
-          </div>
+          </div>)  }    
+</>    )   )     }
+
+     
 
           <form className="absolute bottom-0  w-full mb-3 " onSubmit={(e)=>{submitHandler(e)}}>
             <input

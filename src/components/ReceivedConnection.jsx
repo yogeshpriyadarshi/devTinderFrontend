@@ -45,12 +45,12 @@ console.error(err);
 
   return (  
        <div className="mt-20">
-        <div className="grid grid-cols-4 gap-5 ">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 ">
           {request?.map((data, index) => (
             <div key={data._id} className="  bg-active m-5 h-75">
               <img src={data?.fromUserId?.photoUrl} alt="Profile Pic" className="w-full h-8/12" />
-              <p> {data?.fromUserId?.firstName + "  " + data?.fromUserId?.lastName} </p>
-              <p> {data?.fromUserId?.age + "  " + data?.fromUserId?.gender} </p>
+              <p className="mx-3"> {data?.fromUserId?.firstName + "  " + data?.fromUserId?.lastName} </p>
+              <p className="mx-3"> {data?.fromUserId?.age + "  " + data?.fromUserId?.gender} </p>
               <div className="flex justify-around">
                 <button
                   className="bg-red-400 px-5 py-2 rounded-2xl active:bg-red-800 hover:bg-red-600"
