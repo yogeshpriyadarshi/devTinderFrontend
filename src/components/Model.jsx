@@ -2,80 +2,124 @@ import React, { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import { createSocketConnection } from "../utils/socket";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import { BASE_URL } from "../utils/constant";
 
-export default function Model({text}) {
-    const user = useSelector(store => store.user)
-    const targetId = useSelector(store => store.chat);
-    const [message, setMessage] = useState("");
-    const [chatMessage, setChatMessage] = useState([]);
-    const userId = user._id;
+export default function Model({ text }) {
+  const user = useSelector((store) => store.user);
+  const target = useSelector((store) => store.chat);
+  const [message, setMessage] = useState("");
+  const [chatMessage, setChatMessage] = useState([]);
+  const userId = user._id;
+  const targetId = target?._id
 
-    const submitHandler = (e)=>{
-          e.preventDefault();
-          const socket = createSocketConnection();
-          socket.emit("sendMessage", {firstName: user.firstName, userId, targetId, message }  )
-          setMessage("");
-    }
+  const submitHandler = (e) => {
+    e.preventDefault();
+    const socket = createSocketConnection();
+    socket.emit("sendMessage", {
+      firstName: user.firstName,
+      userId,
+      targetId,
+      message,
+    });
+    setMessage("");
+  };
 
-useEffect(()=>{
-const socket = createSocketConnection();
-socket.emit("join",{firstName:user?.firstName, userId, targetId });
-
-socket.on("receiveMessage", ({firstName, message })=>{
-console.log("receive message:", firstName,message);
-let toogle =false;
-if(firstName===user?.firstName){
-    toogle =true;
+const fetchChat = async()=> {
+   const chat = await axios.get(BASE_URL + "/chat/"+ targetId, {withCredentials:true} )
+   const chatMessage = chat?.data?.message;
+    console.log(chatMessage);
+    chatMessage.forEach(element=>{
+      const message = element.text;
+      const firstName = element?.senderId?.firstName;
+ let toogle = false;
+      if (firstName === user?.firstName) {
+        toogle = true;
+      }
+      setChatMessage((chat) => [...chat, { firstName, message, turn: toogle }]);
+    });
 }
 
+ useEffect( ()=>{
+   fetchChat();
+  },[]);
 
+  useEffect(() => {
+    const socket = createSocketConnection();
+    socket.emit("join", { firstName: user?.firstName, userId, targetId });
 
-setChatMessage((chat)=>[...chat, {firstName, message, turn:toogle} ]  );
+    socket.on("receiveMessage", ({ firstName, message }) => {
+      let toogle = false;
+      if (firstName === user?.firstName) {
+        toogle = true;
+      }
+      setChatMessage((chat) => [...chat, { firstName, message, turn: toogle }]);
+    });
 
-})
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
 
-return () => {socket.disconnect()}
-
-},[]);
-
+ 
 
 
   return (
     <>
       <div className="fixed inset-0 flex justify-center items-center bg-black/50 z-50">
-
-      <button onClick={()=>{text()}} className="bg-red-500 h-15 w-15 rounded-2xl m-3 fixed top-0 right-0  cursor-pointer"  > close </button>
+        <button
+          onClick={() => {
+            text();
+          }}
+          className="bg-red-500 h-15 w-15 rounded-2xl m-3 fixed top-0 right-0  cursor-pointer"
+        >
+          {" "}
+          close{" "}
+        </button>
 
         <div className="relative bg-back w-150 h-150 rounded-2xl p-3 ">
-         
           <div className="flex justify-center items-center">
-            <h1 className="text-3xl text-text "> Message!!! </h1>
+            <h1 className="text-3xl text-text "> {target?.firstName} </h1>
           </div>
 
-{ chatMessage.map( (chat,index)=>  ( <>   
+          {chatMessage.map((chat) => (
+            <>
+              {chat?.turn ? (
+                <div className="flex justify-end my-2  ">
+                  <div className="bg-gray-500  rounded-lg px-2 py-1 h-8 mx-2 ">
+                    {" "}
+                    {chat?.message}.{" "}
+                  </div>
+                </div>
+              ) : (
+                <div className="flex ">
+                  <div className="bg-gray-500  rounded-lg px-2 py-1 h-8 m-2 ">
+                    {" "}
+                    {chat?.message}{" "}
+                  </div>
+                </div>
+              )}
+            </>
+          ))}
 
-         { chat?.turn ? ( <div className="flex justify-end my-2  ">
-            <div className="bg-gray-500  rounded-lg px-2 py-1 h-8 mx-2 ">
-              {" "}
-              {chat?.message}.{" "}
-            </div>
-          </div>): (<div className="flex ">
-            <div className="bg-gray-500  rounded-lg px-2 py-1 h-8 m-2 ">
-              {" "}
-              {chat?.message} {" "}
-            </div>
-          </div>)  }    
-</>    )   )     }
-
-     
-
-          <form className="absolute bottom-0  w-full mb-3 " onSubmit={(e)=>{submitHandler(e)}}>
+          <form
+            className="absolute bottom-0  w-full mb-3 "
+            onSubmit={(e) => {
+              submitHandler(e);
+            }}
+          >
             <input
               type="text"
-              value={message}  onChange={(e)=> {setMessage(e.target.value)   }}
+              value={message}
+              onChange={(e) => {
+                setMessage(e.target.value);
+              }}
               className=" px-2 py-1 w-8/12 bg-active  border h-auto rounded-lg"
             />
-            <button type="submit" className="bg-blue-500 px-2 py-1 mx-2 w-3/12 rounded-lg active:bg-blue-900">
+            <button
+              type="submit"
+              className="bg-blue-500 px-2 py-1 mx-2 w-3/12 rounded-lg active:bg-blue-900"
+            >
               {" "}
               Send Message
             </button>

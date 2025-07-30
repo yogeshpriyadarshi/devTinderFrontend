@@ -19,16 +19,15 @@ export default function Connection() {
   }
 
   const unfriendHandle = async(requestId)=> {
-
     const res = await axios.patch( BASE_URL+ "/request/cancel/" + requestId ,{status:"cancel"},{withCredentials:true});
     allConnection();
   }
-
 
   const allConnection = async () => {
     const res = await axios.get(BASE_URL + "/connection", {
       withCredentials: true,
     });
+
     const connectionArray = res?.data.reduce((acc, curr) => {
       if (user?._id.toString() === curr?.fromUserId?._id.toString()) {
         acc.push(curr?.toUserId);
@@ -37,6 +36,7 @@ export default function Connection() {
       }
       return acc;
     }, []);
+    
     setLoader(false);
     setConnection(connectionArray);
   };
@@ -63,7 +63,7 @@ export default function Connection() {
 <div className="mt-20">
   {isOpen && <Model text = {isModel}  />}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  lg:grid-cols-4 xl:grid-cols-5  ">
-          {connection?.map((data, index) => (
+          {connection?.map((data) => (
             <div key={data._id} className="h-75 bg-active m-5 rounded-2xl shadow-2xl">
               <img src={data?.photoUrl} alt="Profile Pic" className="h-8/12 w-full rounded-2xl" />
               <p className="mx-3"> {data?.firstName + "  " + data?.lastName} </p>
@@ -73,11 +73,9 @@ export default function Connection() {
                    onClick={()=>{unfriendHandle( data?._id )}}
                    > Unfriends </button>
               <button className="bg-green-300 border mx-3 px-3 py-1  rounded-lg hover:bg-green-600 active:bg-green-800"
-              onClick={()=>{dispatch(addChat(data?._id));  setIsOpen(p=>!p)}}
+              onClick={()=>{dispatch(addChat(data));  setIsOpen(p=>!p)}}
               > Message </button>
-              
                 </div>
-            
             </div>
           ))}
         </div>

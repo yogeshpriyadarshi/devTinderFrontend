@@ -14,6 +14,7 @@ export default function Body() {
 
   const fetchUser = async () => {
     try {
+      // whenever hard f Find the user from database
       const user = await axios.get(BASE_URL + "/profile/view", {
         withCredentials: true,
       });
