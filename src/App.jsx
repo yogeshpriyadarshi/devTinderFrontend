@@ -8,7 +8,7 @@ import { Provider } from "react-redux";
 import appStore from "./utils/appStore";
 import Setting from "./components/Setting";
 import Singup from "./components/Singup";
-import Feed from "./components/feed";
+import Feed from "./components/Feed";
 import ReceivedConnection from "./components/ReceivedConnection";
 import Connection from "./components/Connection";
 import SentConnetion from "./components/SentConnetion";

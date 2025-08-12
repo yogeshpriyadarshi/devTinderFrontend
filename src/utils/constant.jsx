@@ -1,5 +1,5 @@
-export const BASE_URL = "http://localhost:2000";
-// export const BASE_URL = "http://34.47.217.75:2000";
+//export const BASE_URL = "http://localhost:2000";
+ export const BASE_URL = "http://34.47.202.171:2000";
 
 export const PROFILE_URL =
 "https://ui-avatars.com/api/?name=Jane+Doe&background=0D8ABC&color=fff&rounded=true"
