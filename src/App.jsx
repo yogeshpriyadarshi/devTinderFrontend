@@ -2,8 +2,6 @@ import react from "react";
 import reactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router";
 import Body from "./components/Body";
-import Profile from "./components/Profile";
-import Login from "./components/Login";
 import { Provider } from "react-redux";
 import appStore from "./utils/appStore";
 import Setting from "./components/Setting";
@@ -12,6 +10,8 @@ import Feed from "./components/Feed";
 import ReceivedConnection from "./components/ReceivedConnection";
 import Connection from "./components/Connection";
 import SentConnetion from "./components/SentConnetion";
+import Login from "./components/auth/Login";
+import Profile from "./components/user/Profile";
 
 function App() {
   return (

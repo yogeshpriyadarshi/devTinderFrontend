@@ -15,10 +15,13 @@ export default function EditProfile() {
   const [about, setAbout] = useState(user?.about);
   const [skill, setSkill] = useState(user?.skill);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [edit, setEdit] = useState(false);
 
   useEffect(() => {
     setError("");
     if (!user) {
+      
       return;
     }
     setAbout(user?.about);
@@ -58,6 +61,7 @@ export default function EditProfile() {
         <label>First Name:</label>
         <input
           type="text"
+          disabled={loading}
           className="h-7 w-full bg-change m-2 rounded-lg px-3 py-1 "
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
@@ -120,7 +124,7 @@ export default function EditProfile() {
               updateProfile();
             }}
           >
-            {" "}
+            {"is "}
             Update Profile{" "}
           </button>
         </div>

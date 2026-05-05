@@ -1,10 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addUser } from "../utils/userSlice";
+import { addUser } from "../../utils/userSlice";
 import { Link, useNavigate } from "react-router-dom";
-import { BASE_URL } from "../utils/constant";
-import LoginWithGoogle from "./LoginWithGoogle";
+import LoginWithGoogle from "../LoginWithGoogle";
+import axiosInstance from "../../utils/axiosInstance";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -23,16 +23,13 @@ export default function Login() {
 
   const loginHandle = async () => {
     try {
-      const res = await axios.post(
-        BASE_URL + "/login",
+      const response = await axiosInstance.post("/auth/login",
         {
           email,
           password,
-        },
-        { withCredentials: true }
-      );
-
-      dispatch(addUser(res.data));
+        });
+      
+      dispatch(addUser(response.data));
       navigate("/feed");
     } catch (err) {
       setError(err.response.data);

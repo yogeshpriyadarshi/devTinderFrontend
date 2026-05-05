@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { BASE_URL } from "../utils/constant";
 import { useNavigate } from "react-router";
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:4000/api";
 
 export default function Sinup() {
   const [singup, setSingup] = useState({
@@ -16,7 +16,7 @@ export default function Sinup() {
   const singupHandler = async() => {
 try{
 
-const res = await axios.post(BASE_URL+"/singup", singup );
+const res = await axios.post(BASE_URL+"/auth/signup", singup );
 console.log("respones :: ",res.data);
 
 if(res?.data?.success){

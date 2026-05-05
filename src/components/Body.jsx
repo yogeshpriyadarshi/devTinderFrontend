@@ -2,10 +2,9 @@ import React, { useEffect } from "react";
 import NavBar from "./NavBar";
 import { Outlet, useNavigate } from "react-router";
 import Footer from "./Footer";
-import axios from "axios";
-import { BASE_URL } from "../utils/constant";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import axiosInstance from "../utils/axiosInstance";
 
 export default function Body() {
   const dispatch = useDispatch();
@@ -15,9 +14,7 @@ export default function Body() {
   const fetchUser = async () => {
     try {
       // whenever hard f Find the user from database
-      const user = await axios.get(BASE_URL + "/profile/view", {
-        withCredentials: true,
-      });
+      const user = await axiosInstance.get("/profile/view");
       dispatch(addUser(user.data));
     } catch (err) {
       if (err.status === 401) {

@@ -1,9 +1,8 @@
-import axios from "axios";
 import React, { useEffect } from "react";
-import { BASE_URL } from "../utils/constant";
 import { useDispatch, useSelector } from "react-redux";
 import { addFeed } from "../utils/feedSlice";
 import { useNavigate } from "react-router";
+import axiosInstance from "../utils/axiosInstance";
 
 export default function Feed() {
   const feed = useSelector((store) => store.feed);
@@ -11,9 +10,7 @@ export default function Feed() {
 
   const fetchFeed = async () => {
     try {
-      const res = await axios.get(BASE_URL + "/feed", {
-        withCredentials: true,
-      });
+      const res = await axiosInstance.get("/profile/feed");
       dispatch(addFeed(res.data));
     } catch (err) {
       console.error(err);
@@ -22,12 +19,9 @@ export default function Feed() {
 
   const connectionHandler = async (status, toRequestId) => {
     try {
-      const res = await axios.post(
-        BASE_URL + "/request/sent/" + status + "/" + toRequestId,
-        {},
-        { withCredentials: true }
-      );
-      if (res.data.success) {
+      const res = await axiosInstance.post(
+            "/request/sent/" + status + "/" + toRequestId);
+      if (res.data.success){
         fetchFeed();
       }
     } catch (err) {
