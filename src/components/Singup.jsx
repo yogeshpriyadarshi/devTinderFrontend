@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:4000/api";
 
 export default function Sinup() {
@@ -15,10 +15,8 @@ export default function Sinup() {
 
   const singupHandler = async() => {
 try{
-
 const res = await axios.post(BASE_URL+"/auth/signup", singup );
 console.log("respones :: ",res.data);
-
 if(res?.data?.success){
 setSingup({
     firstName: "",
@@ -29,11 +27,10 @@ setSingup({
   alert("you have successfully sinup. Now login!")
 navigate("/login");
 }
-
 }catch(err){
-  setError(err?.response?.data?.message);
+  console.log("error :: ",err);
+  setError(err?.response?.data?.err|| "Something went wrong");
 }
-
   }
 
   return (
@@ -96,7 +93,7 @@ navigate("/login");
               }}
             />
           </div>
-<p className="text-red-500 mx-5"  > {error}</p>
+          <p className="text-red-500 mx-5"  > {error}</p>
           <div className=" flex justify-center">
             <button className="mb-2 bg-button w-1/2 text-text font-bold text-2xl active:bg-active hover:bg-change p-2 rounded-2xl"
                     onClick={singupHandler}

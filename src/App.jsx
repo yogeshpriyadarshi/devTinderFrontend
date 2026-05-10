@@ -1,6 +1,5 @@
 import react from "react";
 import reactDOM from "react-dom/client";
-import { BrowserRouter, Route, Routes } from "react-router";
 import Body from "./components/Body";
 import { Provider } from "react-redux";
 import appStore from "./utils/appStore";
@@ -12,6 +11,7 @@ import Connection from "./components/Connection";
 import SentConnetion from "./components/SentConnetion";
 import Login from "./components/auth/Login";
 import Profile from "./components/user/Profile";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
   return (

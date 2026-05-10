@@ -2,7 +2,7 @@ import { useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 import React from 'react'
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { addUser } from '../utils/userSlice';
 
 
