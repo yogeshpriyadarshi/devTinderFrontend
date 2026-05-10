@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import EditProfile from "./EditProfile";
+import ProfilePic from "./ProfilePic";
 
 export default function Profile() {
   const user = useSelector((state) => state.user);
 
   const [edit, setEdit] = useState(false);
+  const [editProfilePic, setEditProfilePic] = useState(false);
+  const [image, setImage] = useState(user?.photoUrl || "https://via.placeholder.com/100");
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
@@ -26,6 +29,7 @@ export default function Profile() {
           <img
             src={user?.photoUrl || "https://via.placeholder.com/100"}
             alt="Profile"
+            onClick={() => setEditProfilePic(true)}
             className="w-24 h-24 rounded-full object-cover border-4 border-blue-100 shadow"
           />
 
@@ -70,6 +74,7 @@ export default function Profile() {
 
       {/* Edit Modal */}
       {edit && <EditProfile setEdit={setEdit} />}
+      {editProfilePic && <ProfilePic  setOpen={setEditProfilePic} />}
     </div>
   );
 }
