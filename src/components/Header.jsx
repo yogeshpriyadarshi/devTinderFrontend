@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import {BASE_URL} from "../utils/constant";
 import { removeUser } from "../utils/userSlice";
+import axiosInstance from "../utils/axiosInstance";
 
 
 export default function Header() {
@@ -13,7 +14,7 @@ export default function Header() {
     const navigate = useNavigate();
 
     const logoutHandler = async () => {
-    await axios.post(BASE_URL + "/logout", {}, { withCredentials: true });
+    await axiosInstance.post("/auth/logout");
     dispatch(removeUser());
     navigate("/login");
   };
