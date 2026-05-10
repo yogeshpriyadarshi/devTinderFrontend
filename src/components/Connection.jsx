@@ -1,13 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { BASE_URL } from "../utils/constant";
 import { useDispatch, useSelector } from "react-redux";
 import { Loader } from "./Loader";
 import Model from "./Model";
 import { addChat } from "../utils/chatSlice";
+import axiosInstance from "../utils/axiosInstance";
 
 export default function Connection() {
-
   const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const [connection, setConnection] = useState([]);
@@ -19,14 +18,12 @@ export default function Connection() {
   }
 
   const unfriendHandle = async(requestId)=> {
-    const res = await axios.patch( BASE_URL+ "/request/cancel/" + requestId ,{status:"cancel"},{withCredentials:true});
+    const res = await axiosInstance.patch("/request/cancel/" + requestId ,{status:"cancel"});
     allConnection();
   }
 
   const allConnection = async () => {
-    const res = await axios.get(BASE_URL + "/connection", {
-      withCredentials: true,
-    });
+    const res = await axiosInstance.get("/connection");
 
     const connectionArray = res?.data.reduce((acc, curr) => {
       if (user?._id.toString() === curr?.fromUserId?._id.toString()) {

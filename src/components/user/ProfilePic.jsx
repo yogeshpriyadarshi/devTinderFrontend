@@ -1,11 +1,15 @@
 import { useState } from "react";
 import axios from "axios";
 import axiosInstance from "../../utils/axiosInstance";
+import { toast } from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { addUser } from "../../utils/userSlice";
 
 function ProfilePic({ setOpen }) {
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const selected = e.target.files[0];
@@ -24,9 +28,10 @@ function ProfilePic({ setOpen }) {
     try {
       setLoading(true);
       const res = await axiosInstance.post("/profile/upload/image", formData);
-
-      console.log(res.data.url);
+      dispatch(addUser(res.data));
+      console.log(res.data);
       setOpen(false);
+      toast.success("Profile photo updated successfully!");
     } catch (err) {
       console.error(err);
     } finally {

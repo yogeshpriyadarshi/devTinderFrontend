@@ -41,18 +41,18 @@ export default function Header() {
         </div>
 
 <div> 
-<button className="text-text text-2xl mt-3"> {user?.firstName} </button>
+<button className="text-text text-2xl mt-3"> {user?.firstName}  {user?.lastName} </button>
 
 </div>
         <div className="relative">
-            <img alt="Profile pic"  src={user?.photoUrl} className="h-15 w-15 mx-3 rounded-full object-cover"
+            <img alt="Profile pic"  src={user?.photoUrl} className="h-15 w-15 mx-3 rounded-full object-cover cursor-pointer"
             onClick={()=>{setOpen(pre=>!pre)}} /> 
          {
            open && (
-            <div className="absolute bg-back " > 
+            <div className="absolute top-15 right-5 bg-white shadow-lg rounded-lg p-4" > 
               <Link to="/profile">  
-              <button className="bg-button w-full px-5 my-2 rounded-lg" onClick={()=>{setOpen(p=>!p)}} > Profile  </button>   </Link> 
-             <button className="bg-button w-full px-5 my-2 rounded-lg active:bg-active"  onClick={()=>{logoutHandler()}} >  logout  </button>
+              <button className="bg-button w-full px-5 my-2 rounded-lg cursor-pointer" onClick={()=>{setOpen(p=>!p)}} > Profile  </button>   </Link> 
+             <button className="bg-button w-full px-5 my-2 rounded-lg active:bg-active cursor-pointer"  onClick={()=>{logoutHandler()}} >  logout  </button>
             </div>
               )
          }

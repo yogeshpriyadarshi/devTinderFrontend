@@ -1,10 +1,13 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import axiosInstance from "../../utils/axiosInstance";
+import { addUser } from "../../utils/userSlice";
+import toast from "react-hot-toast";
 
 function EditProfile(props) {
   const { setEdit } = props;
   const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
     firstName: user.firstName || "",
@@ -27,7 +30,8 @@ function EditProfile(props) {
     try{
         const response = await axiosInstance.patch("/profile/update", formData);
         if(response.status === 200){
-            // Update successful, you can also update the Redux store here if needed
+            toast.success("Profile updated successfully!");
+            dispatch(addUser(response.data));
             setEdit(false);
         } else {
             console.error("Failed to update profile:", response.data);

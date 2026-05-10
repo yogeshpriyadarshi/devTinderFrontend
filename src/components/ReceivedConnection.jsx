@@ -1,16 +1,14 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { BASE_URL } from "../utils/constant";
+import axiosInstance from "../utils/axiosInstance";
 
 export default function ReceivedConnection() {
   const [request, setRequest] = useState([]);
 
   const receiveRequest = async () => {
     try {
-      const res = await axios.get(
-        BASE_URL + "/request/view/",
-        {withCredentials:true}
-      );
+      const res = await axiosInstance.get("/request/view/");
       setRequest(res.data);
     } catch (err) {
       console.error(err);
@@ -18,7 +16,7 @@ export default function ReceivedConnection() {
   };
 const connectionHandler = async(status,id)=>{
     try{
-        const res = await axios.patch(BASE_URL + "/request/review/" + status + "/" + id,{status} ,{withCredentials:true});
+        const res = await axiosInstance.patch("/request/review/" + status + "/" + id,{status});
         if(res.data.success){
           receiveRequest();
         }    

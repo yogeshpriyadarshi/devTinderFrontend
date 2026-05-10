@@ -84,7 +84,7 @@ export default function Login() {
               </p>
               <button className="border-1 p-2 font-bold text-2xl bg-button text-text rounded-lg active:bg-active hover:bg-change  ">
                 {" "}
-                <Link to="/sinup"> Sin Up </Link>
+                <Link to="/signup"> Sin Up </Link>
               </button>
             </div>
           </div>

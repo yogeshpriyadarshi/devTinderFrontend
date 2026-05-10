@@ -4,6 +4,7 @@ import { createSocketConnection } from "../utils/socket";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { BASE_URL } from "../utils/constant";
+import axiosInstance from "../utils/axiosInstance";
 
 export default function Model({ text }) {
   const user = useSelector((store) => store.user);
@@ -26,7 +27,7 @@ export default function Model({ text }) {
   };
 
 const fetchChat = async()=> {
-   const chat = await axios.get(BASE_URL + "/chat/"+ targetId, {withCredentials:true} )
+   const chat = await axiosInstance.get("/chat/"+ targetId)
    const chatMessage = chat?.data?.message;
     console.log(chatMessage);
     chatMessage.forEach(element=>{
@@ -60,9 +61,6 @@ const fetchChat = async()=> {
       socket.disconnect();
     };
   }, []);
-
- 
-
 
   return (
     <>

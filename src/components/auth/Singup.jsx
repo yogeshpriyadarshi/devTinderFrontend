@@ -1,10 +1,11 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:4000/api";
 
-export default function Sinup() {
-  const [singup, setSingup] = useState({
+export default function Signup() {
+  const [signup, setSignup] = useState({
     firstName: "",
     lastName: "",
     email: "",
@@ -13,19 +14,19 @@ export default function Sinup() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const singupHandler = async() => {
+  const signupHandler = async() => {
 try{
-const res = await axios.post(BASE_URL+"/auth/signup", singup );
+const res = await axios.post(BASE_URL+"/auth/signup", signup, {withCredentials:true});
 console.log("respones :: ",res.data);
 if(res?.data?.success){
-setSingup({
+setSignup({
     firstName: "",
     lastName: "",
     email: "",
     password: "",
   });
-  alert("you have successfully sinup. Now login!")
-navigate("/login");
+  toast.success("You have successfully signed up. Now login!");
+  navigate("/login");
 }
 }catch(err){
   console.log("error :: ",err);
@@ -48,9 +49,9 @@ navigate("/login");
               type="text"
               placeholder="First Name"
               className="bg-white h-7 w-full p-5 rounded-2xl"
-              value={singup.firstName}
+              value={signup.firstName}
               onChange={(e) => {
-                setSingup({ ...singup, firstName: e.target.value });
+                setSignup({ ...signup , firstName: e.target.value });
               }}
             />
           </div>
@@ -61,9 +62,9 @@ navigate("/login");
               type="text"
               placeholder="Last Name"
               className="bg-white h-7 w-full p-5 rounded-2xl"
-              value={singup.lastName}
+              value={signup.lastName}
               onChange={(e) => {
-                setSingup({ ...singup, lastName: e.target.value });
+                setSignup({ ...signup, lastName: e.target.value });
               }}
             />
           </div>
@@ -74,9 +75,9 @@ navigate("/login");
               type="text"
               placeholder="Email Id:"
               className="bg-white h-7 w-full p-5 rounded-2xl"
-              value={singup.email}
+              value={signup.email}
               onChange={(e) => {
-                setSingup({ ...singup, email: e.target.value });
+                setSignup({ ...signup, email: e.target.value });
               }}
             />
           </div>
@@ -87,16 +88,16 @@ navigate("/login");
               type="text"
               placeholder="Password"
               className="bg-white h-7 w-full p-5 rounded-2xl"
-              value={singup.password}
+              value={signup.password}
               onChange={(e) => {
-                setSingup({ ...singup, password: e.target.value });
+                setSignup({ ...signup, password: e.target.value });
               }}
             />
           </div>
           <p className="text-red-500 mx-5"  > {error}</p>
           <div className=" flex justify-center">
             <button className="mb-2 bg-button w-1/2 text-text font-bold text-2xl active:bg-active hover:bg-change p-2 rounded-2xl"
-                    onClick={singupHandler}
+                    onClick={signupHandler}
             >
               {" "}
               Sign Up

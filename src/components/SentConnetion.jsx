@@ -1,13 +1,14 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { BASE_URL } from "../utils/constant";
+import axiosInstance from "../utils/axiosInstance";
 
 export default function SentConnetion() {
   const [sent, setSent] = useState([]);
 
   const cancelHandler = async(id) => {
      try{
-      const res = await axios.patch( BASE_URL +"/request/cancel/"+ id,{}, {withCredentials:true});
+      const res = await axiosInstance.patch("/request/cancel/"+ id);
       console.log(res.data.success);
       if(res?.data?.success){
         requestsent()
@@ -19,9 +20,7 @@ export default function SentConnetion() {
 
   const requestsent = async () => {
     try {
-      const res = await axios.get(BASE_URL + "/request/sent", {
-        withCredentials: true,
-      });
+      const res = await axiosInstance.get("/request/sent");
       console.log(res?.data);
       setSent(res?.data);
     } catch (err) {
